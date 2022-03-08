@@ -85,7 +85,7 @@ app.get("/albums", async (req, res) => {
 
 app.get("/load-albums", async (req, res) => {
     try {
-        const result = await albumsCollection.insertMany(users, { ordered: true });
+        const result = await albumsCollection.insertMany(albums, { ordered: true });
         console.log(result.insertedCount, "docs uploaded");
         res.send(`${result.insertedCount} documents inserted!`);
     }
