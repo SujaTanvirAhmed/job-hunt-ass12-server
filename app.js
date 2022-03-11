@@ -138,6 +138,19 @@ app.get("/reviews", async (req, res) => {
     }
 });
 
+app.post("/reviews", async (req, res) => {
+    try {
+        const review = req.body;
+        const result = await reviewsCollection.insertOne(review);
+        const msg = `Your review inserted with id: ${result.insertedId}`;
+        console.log(msg);
+        res.send(msg);
+    }
+    catch {
+        res.send("Error uploading your review!");
+    }
+});
+
 app.listen(port, () => {
     console.log(`Job Hunt Ass12 Server is Running at http://localhost:${port}`);
 });
