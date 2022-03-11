@@ -49,7 +49,7 @@ app.get("/users", async (req, res) => {
             const user = await usersCollection.findOne({ email });
             const role = user?.role || "user";
             res.send(role);
-            console.log(role);
+            // console.log(role);
         }
         else {
             console.log("got no mail");
@@ -97,18 +97,15 @@ app.get("/products", async (req, res) => {
 app.get("/products/:id", async (req, res) => {
     try {
         const productId = req.params.id;
-        const theProduct = products.find((product) => product.id === productId);
+        const theProduct = await productsCollection.findOne({ _id: ObjectId(productId) });
         if (theProduct) {
-            console.log(theProduct);
             res.send(theProduct);
         }
         else {
-            console.log("Invalid product id");
             res.send("Invalid product id");
         }
     }
     catch {
-        console.log("Error");
         res.send("Error");
     }
 });
